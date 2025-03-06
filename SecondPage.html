@@ -13,13 +13,22 @@
         margin: 15px;
       }
 
+      #submit{
+        background-color: orange;
+                        color: white;
+                        border: solid darkorange ;
+                        border-radius: 8px ;
+                        padding: 8px;
+                        margin: 4px;
+      }
+
       
     </style>
   </head>
   <body>
     <header>
       <figure id="AppLogo">
-        <img height="200" src="Adobe Express - file.png" alt="App Logo" />
+        <img height="200" src="photo.png" alt="App Logo" />
       </figure>
 
       <article>
@@ -30,44 +39,55 @@
     <main>
         <form>
                 <ol type="i">
-                        <li>
-                          <input
-                            class="list"
-                            type="text"
-                            name="username"
-                            placeholder="Enter your username"
-                            autofocus
-                            required
-                          />
-                        </li>
-                        <li>
-                          <input
-                            class="list"
-                            type="email"
-                            name="email"
-                            placeholder="Enter your email"
-                            autofocus
-                            required
-                          />
-                        </li>
-                        <li>
-                          <input
-                            class="list"
-                            type="password"
-                            name="password"
-                            placeholder="Enter your password"
-                            autofocus
-                            required
-                          />
-                        </li>
-                
-                        <li>
-                          <input class="list" type="radio" id="male" name="gender" value="male" />
-                          <label for="male">Male</label>
-                          <input class="list" type="radio" id="female" name="gender" value="female" />
-                          <label for="female">Female</label>
-                        </li>
+                  <li>
+                    <input
+                      class="list"
+                      type="text"
+                      name="username"
+                      placeholder="Enter your username"
+                      autofocus
+                      required
+                    />
+                  </li>
+                  <li>
+                    <input
+                      class="list"
+                      type="email"
+                      name="email"
+                      placeholder="Enter your email"
+                      autofocus
+                      required
+                    />
+                  </li>
+                  <li>
+                    <input
+                      class="list"
+                      type="password"
+                      name="password"
+                      placeholder="Enter your password"
+                      autofocus
+                      required
+                    />
+                  </li>
+          
+                  <li>
+                    <input class="list" type="radio" id="male" name="gender" value="male" />
+                    <label for="male">Male</label>
+                    <input class="list" type="radio" id="female" name="gender" value="female" />
+                    <label for="female">Female</label>
+                  </li>
+                </ol>                    
+        </form>
+        <form action="ThirdPage.html">
+          <input type="submit" id="submit" name="submit" value="Submit">
         </form>
     </main>
+    
+    <footer>
+      <article>
+        <p>One small step to start your journey.</p>
+      </article>
+    </footer>
+
   </body>
 </html>
