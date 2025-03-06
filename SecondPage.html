@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in Page</title>
+    <style>
+      .list {
+        margin: 4px;
+      }
+
+      #submit{
+        margin: 15px;
+      }
+
+      
+    </style>
+  </head>
+  <body>
+    <header>
+      <figure id="AppLogo">
+        <img height="200" src="Adobe Express - file.png" alt="App Logo" />
+      </figure>
+
+      <article>
+        <h1>Sign in to Progress!</h1>
+      </article>
+    </header>
+
+    <main>
+        <form>
+                <ol type="i">
+                        <li>
+                          <input
+                            class="list"
+                            type="text"
+                            name="username"
+                            placeholder="Enter your username"
+                            autofocus
+                            required
+                          />
+                        </li>
+                        <li>
+                          <input
+                            class="list"
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            autofocus
+                            required
+                          />
+                        </li>
+                        <li>
+                          <input
+                            class="list"
+                            type="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autofocus
+                            required
+                          />
+                        </li>
+                
+                        <li>
+                          <input class="list" type="radio" id="male" name="gender" value="male" />
+                          <label for="male">Male</label>
+                          <input class="list" type="radio" id="female" name="gender" value="female" />
+                          <label for="female">Female</label>
+                        </li>
+        </form>
+    </main>
+  </body>
+</html>
