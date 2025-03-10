@@ -86,7 +86,7 @@
 <body>
 
     <div class="form-container">
-        <h1>User Information</h1>
+        <h1>User Information </h1>
         <form id="userForm">
             <div class="form-section">
                 <!-- Name Input -->
@@ -124,12 +124,12 @@
             <!-- Additional volunteer details (will appear if "Yes" is selected) -->
             <div class="form-section volunteer-description" id="volunteerDescription">
                 <label for="description">Please describe why you want to volunteer:</label><br>
-                <textarea id="description" name="description" rows="4" placeholder="Your description..."></textarea>
+                <textarea id="description" name="description" rows="4" placeholder="Your description..." required></textarea>
             </div>
 
             <div class="form-section volunteer-experience" id="volunteerExperience">
                 <label for="experience">Do you have any prior volunteer experience?</label><br>
-                <textarea id="experience" name="experience" rows="4" placeholder="Describe your previous volunteering experiences..."></textarea>
+                <textarea id="experience" name="experience" rows="4" placeholder="Describe your previous volunteering experiences..." required></textarea>
             </div>
 
             <div class="form-section account-details" id="accountDetails">
@@ -137,7 +137,7 @@
                 <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number for donation (optional)">
             </div>
 
-            <div class="error-message" id="errorMessage">Please fill in all fields correctly.</div>
+            <div class="error-message" id="errorMessage">Please fill in all mandatory fields correctly.</div>
 
             <button type="submit" class="submit-btn">Submit</button>
         </form>
@@ -172,9 +172,12 @@
             const phone = document.getElementById("phone").value;
             const address = document.getElementById("address").value;
             const volunteerOption = document.querySelector('input[name="volunteer"]:checked').value;
+            const description = document.getElementById("description").value;
+            const experience = document.getElementById("experience").value;
 
-            // Check if name, age, phone, address, and volunteer option are valid
-            if (!name || !age || age < 18 || !phone || !address || !volunteerOption) {
+            // Check if name, age, phone, address, volunteer option, description, and experience are valid
+            if (!name || !age || age < 18 || !phone || !address || !volunteerOption || 
+                (volunteerOption === "Yes" && (!description || !experience))) {
                 event.preventDefault(); // Prevent form submission
                 errorMessage.style.display = 'block'; // Show error message
             } else {
@@ -186,4 +189,6 @@
 
 </body>
 </html>
+
+
 
