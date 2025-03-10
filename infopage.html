@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Information </title>
+    <title>User Information Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -70,7 +70,7 @@
             margin-bottom: 20px;
         }
 
-        .volunteer-description {
+        .volunteer-description, .volunteer-experience, .account-details {
             display: none;
             margin-top: 10px;
         }
@@ -86,7 +86,7 @@
 <body>
 
     <div class="form-container">
-        <h1>User Information </h1>
+        <h1>User Information</h1>
         <form id="userForm">
             <div class="form-section">
                 <!-- Name Input -->
@@ -109,9 +109,20 @@
                 <label for="volunteerNo">No</label>
             </div>
 
+            <!-- Additional volunteer details (will appear if "Yes" is selected) -->
             <div class="form-section volunteer-description" id="volunteerDescription">
                 <label for="description">Please describe why you want to volunteer:</label><br>
                 <textarea id="description" name="description" rows="4" placeholder="Your description..."></textarea>
+            </div>
+
+            <div class="form-section volunteer-experience" id="volunteerExperience">
+                <label for="experience">Do you have any prior volunteer experience?</label><br>
+                <textarea id="experience" name="experience" rows="4" placeholder="Describe your previous volunteering experiences..."></textarea>
+            </div>
+
+            <div class="form-section account-details" id="accountDetails">
+                <label for="accountNumber">Account number for donation (optional):</label><br>
+                <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number for donation (optional)">
             </div>
 
             <div class="error-message" id="errorMessage">Please fill in all fields correctly.</div>
@@ -121,19 +132,25 @@
     </div>
 
     <script>
-        // JavaScript to show or hide the volunteer description based on selection
+        // JavaScript to show or hide the volunteer details based on selection
         const volunteerYes = document.getElementById("volunteerYes");
         const volunteerNo = document.getElementById("volunteerNo");
         const volunteerDescription = document.getElementById("volunteerDescription");
+        const volunteerExperience = document.getElementById("volunteerExperience");
+        const accountDetails = document.getElementById("accountDetails");
         const form = document.getElementById("userForm");
         const errorMessage = document.getElementById("errorMessage");
 
         volunteerYes.addEventListener('change', function() {
             volunteerDescription.style.display = 'block';
+            volunteerExperience.style.display = 'block';
+            accountDetails.style.display = 'block'; // Show donation account field
         });
 
         volunteerNo.addEventListener('change', function() {
             volunteerDescription.style.display = 'none';
+            volunteerExperience.style.display = 'none';
+            accountDetails.style.display = 'none'; // Hide donation account field
         });
 
         // Form validation before submission
