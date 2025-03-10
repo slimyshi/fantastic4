@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f4e1; /* Light orange background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #e67e22; /* Dark orange color for heading */
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: inline-block;
+            color: #e67e22; /* Dark orange for labels */
+        }
+
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #f39c12; /* Lighter orange border */
+            border-radius: 4px;
+        }
+
+        input[type="radio"] {
+            margin-top: 10px;
+        }
+
+        .submit-btn {
+            background-color: #e67e22; /* Orange background */
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #d35400; /* Darker orange for hover effect */
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+        }
+
+        .volunteer-description {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .error-message {
+            color: red;
+            display: none;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>User Information </h1>
+        <form id="userForm">
+            <div class="form-section">
+                <!-- Name Input -->
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-section">
+                <!-- Age Input -->
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required min="18" placeholder="Enter age (18 or older)">
+            </div>
+
+            <div class="form-section">
+                <!-- Volunteer Option -->
+                <label for="volunteer">Do you want to be a volunteer?</label><br>
+                <input type="radio" id="volunteerYes" name="volunteer" value="Yes">
+                <label for="volunteerYes">Yes</label>
+                <input type="radio" id="volunteerNo" name="volunteer" value="No" checked>
+                <label for="volunteerNo">No</label>
+            </div>
+
+            <div class="form-section volunteer-description" id="volunteerDescription">
+                <label for="description">Please describe why you want to volunteer:</label><br>
+                <textarea id="description" name="description" rows="4" placeholder="Your description..."></textarea>
+            </div>
+
+            <div class="error-message" id="errorMessage">Please fill in all fields correctly.</div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to show or hide the volunteer description based on selection
+        const volunteerYes = document.getElementById("volunteerYes");
+        const volunteerNo = document.getElementById("volunteerNo");
+        const volunteerDescription = document.getElementById("volunteerDescription");
+        const form = document.getElementById("userForm");
+        const errorMessage = document.getElementById("errorMessage");
+
+        volunteerYes.addEventListener('change', function() {
+            volunteerDescription.style.display = 'block';
+        });
+
+        volunteerNo.addEventListener('change', function() {
+            volunteerDescription.style.display = 'none';
+        });
+
+        // Form validation before submission
+        form.addEventListener('submit', function(event) {
+            const name = document.getElementById("name").value;
+            const age = document.getElementById("age").value;
+            const volunteerOption = document.querySelector('input[name="volunteer"]:checked').value;
+
+            // Check if name, age and volunteer option are valid
+            if (!name || !age || age < 18 || !volunteerOption) {
+                event.preventDefault(); // Prevent form submission
+                errorMessage.style.display = 'block'; // Show error message
+            } else {
+                errorMessage.style.display = 'none'; // Hide error message
+                alert("Form submitted successfully!");
+            }
+        });
+    </script>
+
+</body>
+</html>
