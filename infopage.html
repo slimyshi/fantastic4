@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f4e1; /* Light orange background */
+            background-color: #f9f4e1;
             color: #333;
             margin: 0;
             padding: 0;
@@ -16,7 +16,6 @@
             align-items: center;
             height: 100vh;
         }
-
         .form-container {
             background-color: white;
             padding: 30px;
@@ -25,33 +24,24 @@
             width: 100%;
             max-width: 600px;
         }
-
         h1 {
             text-align: center;
-            color: #e67e22; /* Dark orange color for heading */
+            color: #e67e22;
         }
-
         label {
             font-weight: bold;
-            margin-top: 10px;
-            display: inline-block;
-            color: #e67e22; /* Dark orange for labels */
+            display: block;
+            color: #e67e22;
         }
-
-        input[type="text"], input[type="number"], input[type="tel"], textarea {
+        input, textarea {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
-            border: 1px solid #f39c12; /* Lighter orange border */
+            border: 1px solid #f39c12;
             border-radius: 4px;
         }
-
-        input[type="radio"] {
-            margin-top: 10px;
-        }
-
         .submit-btn {
-            background-color: #e67e22; /* Orange background */
+            background-color: #e67e22;
             color: white;
             padding: 12px;
             border: none;
@@ -61,132 +51,104 @@
             font-size: 16px;
             margin-top: 20px;
         }
-
         .submit-btn:hover {
-            background-color: #d35400; /* Darker orange for hover effect */
+            background-color: #d35400;
         }
-
         .form-section {
             margin-bottom: 20px;
         }
-
-        .volunteer-description, .volunteer-experience, .account-details {
+        .volunteer-details {
             display: none;
-            margin-top: 10px;
         }
-
-        .error-message {
-            color: red;
+        .popup {
             display: none;
-            font-size: 14px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .popup button {
             margin-top: 10px;
+            padding: 10px;
+            background: #e67e22;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
-
     <div class="form-container">
-        <h1>User Information </h1>
+        <h1>User Information</h1>
         <form id="userForm">
             <div class="form-section">
-                <!-- Name Input -->
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
             </div>
-
             <div class="form-section">
-                <!-- Age Input -->
                 <label for="age">Age:</label>
-                <input type="number" id="age" name="age" required min="18" placeholder="Enter age (18 or older)">
+                <input type="number" id="age" name="age" required min="18">
             </div>
-
-            <!-- Phone Number Input -->
             <div class="form-section">
                 <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" required pattern="^\+?[1-9]\d{1,14}$" placeholder="Enter your phone number (e.g. +1234567890)">
+                <input type="tel" id="phone" name="phone" required pattern="^\+?[1-9]\d{1,14}$">
             </div>
-
-            <!-- Address Location Input -->
             <div class="form-section">
                 <label for="address">Address:</label>
-                <input type="text" id="address" name="address" required placeholder="Enter your address">
+                <input type="text" id="address" name="address" required>
             </div>
-
             <div class="form-section">
-                <!-- Volunteer Option -->
-                <label for="volunteer">Do you want to be a volunteer?</label><br>
+                <label>Do you want to be a volunteer?</label><br>
                 <input type="radio" id="volunteerYes" name="volunteer" value="Yes">
                 <label for="volunteerYes">Yes</label>
                 <input type="radio" id="volunteerNo" name="volunteer" value="No" checked>
                 <label for="volunteerNo">No</label>
             </div>
-
-            <!-- Additional volunteer details (will appear if "Yes" is selected) -->
-            <div class="form-section volunteer-description" id="volunteerDescription">
-                <label for="description">Please describe why you want to volunteer:</label><br>
-                <textarea id="description" name="description" rows="4" placeholder="Your description..." required></textarea>
+            <div class="volunteer-details" id="volunteerDetails">
+                <div class="form-section">
+                    <label for="description">Why do you want to volunteer?</label>
+                    <textarea id="description" name="description" rows="4"></textarea>
+                </div>
+                <div class="form-section">
+                    <label for="experience">Previous Volunteer Experience:</label>
+                    <textarea id="experience" name="experience" rows="4"></textarea>
+                </div>
+                <div class="form-section">
+                    <label for="expertise">Skills & Expertise:</label>
+                    <textarea id="expertise" name="expertise" rows="4"></textarea>
+                </div>
             </div>
-
-            <div class="form-section volunteer-experience" id="volunteerExperience">
-                <label for="experience">Do you have any prior volunteer experience?</label><br>
-                <textarea id="experience" name="experience" rows="4" placeholder="Describe your previous volunteering experiences..." required></textarea>
-            </div>
-
-            <div class="form-section account-details" id="accountDetails">
-                <label for="accountNumber">Account number for donation (optional):</label><br>
-                <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number for donation (optional)">
-            </div>
-
-            <div class="error-message" id="errorMessage">Please fill in all mandatory fields correctly.</div>
-
             <button type="submit" class="submit-btn">Submit</button>
         </form>
     </div>
-
+    <div id="popup" class="popup">
+        <p>Form submitted successfully!</p>
+        <button onclick="closePopup()">OK</button>
+    </div>
     <script>
-        // JavaScript to show or hide the volunteer details based on selection
-        const volunteerYes = document.getElementById("volunteerYes");
-        const volunteerNo = document.getElementById("volunteerNo");
-        const volunteerDescription = document.getElementById("volunteerDescription");
-        const volunteerExperience = document.getElementById("volunteerExperience");
-        const accountDetails = document.getElementById("accountDetails");
-        const form = document.getElementById("userForm");
-        const errorMessage = document.getElementById("errorMessage");
-
-        volunteerYes.addEventListener('change', function() {
-            volunteerDescription.style.display = 'block';
-            volunteerExperience.style.display = 'block';
-            accountDetails.style.display = 'block'; // Show donation account field
+        document.getElementById("volunteerYes").addEventListener("change", function() {
+            document.getElementById("volunteerDetails").style.display = "block";
         });
-
-        volunteerNo.addEventListener('change', function() {
-            volunteerDescription.style.display = 'none';
-            volunteerExperience.style.display = 'none';
-            accountDetails.style.display = 'none'; // Hide donation account field
+        document.getElementById("volunteerNo").addEventListener("change", function() {
+            document.getElementById("volunteerDetails").style.display = "none";
         });
-
-        // Form validation before submission
-        form.addEventListener('submit', function(event) {
-            const name = document.getElementById("name").value;
-            const age = document.getElementById("age").value;
-            const phone = document.getElementById("phone").value;
-            const address = document.getElementById("address").value;
-            const volunteerOption = document.querySelector('input[name="volunteer"]:checked').value;
-            const description = document.getElementById("description").value;
-            const experience = document.getElementById("experience").value;
-
-            // Check if name, age, phone, address, volunteer option, description, and experience are valid
-            if (!name || !age || age < 18 || !phone || !address || !volunteerOption || 
-                (volunteerOption === "Yes" && (!description || !experience))) {
-                event.preventDefault(); // Prevent form submission
-                errorMessage.style.display = 'block'; // Show error message
-            } else {
-                errorMessage.style.display = 'none'; // Hide error message
-                alert("Form submitted successfully!");
-            }
+        document.getElementById("userForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const volunteerChoice = document.querySelector('input[name="volunteer"]:checked').value;
+            localStorage.setItem("volunteerStatus", volunteerChoice);
+            document.getElementById("popup").style.display = "block";
         });
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            window.location.href = "ThirdPage.html";
+        }
     </script>
-
 </body>
 </html>
 
