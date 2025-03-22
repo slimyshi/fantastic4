@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Information Form</title>
     <style>
+        /* Modern pixel art style */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f4e1;
+            font-family: 'Pixelify Sans', sans-serif; /* Pixelated but modern font */
+            background-color: #f5f5f5; /* Soft background */
             color: #333;
             margin: 0;
             padding: 0;
@@ -15,51 +16,89 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-image: url('sigma.png'); /* Replace with your paw print image URL */
+            background-repeat: repeat; /* Repeats the paw print image across the background */
+            background-size: 50px 50px; /* Adjust the size of the paw print */
+            overflow-x: hidden;
+            scroll-behavior: smooth; /* Enable smooth scrolling */
         }
+
         .form-container {
             background-color: white;
             padding: 30px;
-            border-radius: 8px;
+            border-radius: 12px; /* Soft rounded corners */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 600px;
+            border: 4px solid #ff6f61; /* Soft coral border */
+            box-sizing: border-box;
+            transition: height 0.3s ease; /* Smooth transition for height */
         }
+
         h1 {
             text-align: center;
-            color: #e67e22;
+            color: #ff6f61; /* Soft coral color */
+            font-size: 2rem;
+            margin-bottom: 20px;
         }
+
         label {
             font-weight: bold;
             display: block;
-            color: #e67e22;
+            color: #ff6f61; /* Soft coral color */
+            margin-bottom: 5px;
         }
+
         input, textarea {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
-            border: 1px solid #f39c12;
-            border-radius: 4px;
+            border: 2px solid #ccc;
+            border-radius: 8px; /* Soft rounded corners */
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
         }
+
+        input:focus, textarea:focus {
+            border-color: #ff6f61; /* Highlight on focus */
+            outline: none;
+        }
+
         .submit-btn {
-            background-color: #e67e22;
+            background-color: #ff6f61; /* Soft coral color */
             color: white;
             padding: 12px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px; /* Soft rounded corners */
             width: 100%;
             cursor: pointer;
-            font-size: 16px;
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 1rem;
             margin-top: 20px;
+            transition: background-color 0.3s ease;
         }
+
         .submit-btn:hover {
-            background-color: #d35400;
+            background-color: #ff4a3d; /* Darker coral on hover */
+            animation: pixelate 0.3s ease; /* Pixelated button animation */
         }
+
         .form-section {
             margin-bottom: 20px;
         }
+
         .volunteer-details {
             display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
+
+        .volunteer-details.visible {
+            display: block;
+            opacity: 1;
+        }
+
         .popup {
             display: none;
             position: fixed;
@@ -68,18 +107,65 @@
             transform: translate(-50%, -50%);
             background: white;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px; /* Soft rounded corners */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
+            border: 4px solid #ff6f61; /* Soft coral border */
         }
+
         .popup button {
             margin-top: 10px;
             padding: 10px;
-            background: #e67e22;
+            background: #ff6f61; /* Soft coral color */
             border: none;
             color: white;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 8px; /* Soft rounded corners */
+            font-family: 'Pixelify Sans', sans-serif;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup button:hover {
+            background-color: #ff4a3d; /* Darker coral on hover */
+        }
+
+        /* Pixel art button animation */
+        @keyframes pixelate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            .form-container {
+                padding: 20px;
+            }
+            input, textarea {
+                font-size: 0.9rem;
+            }
+            .submit-btn {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.25rem;
+            }
+            .form-container {
+                padding: 15px;
+            }
+            input, textarea {
+                font-size: 0.85rem;
+            }
+            .submit-btn {
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
@@ -133,17 +219,19 @@
     </div>
     <script>
         document.getElementById("volunteerYes").addEventListener("change", function() {
-            document.getElementById("volunteerDetails").style.display = "block";
+            document.getElementById("volunteerDetails").classList.add("visible");
         });
         document.getElementById("volunteerNo").addEventListener("change", function() {
-            document.getElementById("volunteerDetails").style.display = "none";
+            document.getElementById("volunteerDetails").classList.remove("visible");
         });
+
         document.getElementById("userForm").addEventListener("submit", function(event) {
             event.preventDefault();
             const volunteerChoice = document.querySelector('input[name="volunteer"]:checked').value;
             localStorage.setItem("volunteerStatus", volunteerChoice);
             document.getElementById("popup").style.display = "block";
         });
+
         function closePopup() {
             document.getElementById("popup").style.display = "none";
             window.location.href = "ThirdPage.html";
@@ -151,6 +239,3 @@
     </script>
 </body>
 </html>
-
-
-
