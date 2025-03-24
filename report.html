@@ -5,52 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report a Stray</title>
     <style>
-        /* Modern pixel art style */
         body {
-            font-family: 'Pixelify Sans', sans-serif; /* Pixelated but modern font */
+            font-family: 'Pixelify Sans', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5; /* Soft background */
+            background-color: #f5f5f5;
             text-align: center;
             color: #333;
         }
-
         header {
-            background-color: #ff6f61; /* Soft coral color */
+            background-color: #ff6f61;
             padding: 20px;
             color: white;
-            border-bottom: 4px solid #ff4a3d; /* Slightly darker coral */
+            border-bottom: 4px solid #ff4a3d;
         }
-
         #AppLogo img {
-            height: 100px; /* Smaller for a modern look */
-            image-rendering: crisp-edges; /* Keeps pixel art sharp */
+            height: 100px;
+            image-rendering: crisp-edges;
             border: 4px solid white;
-            border-radius: 8px; /* Soft rounded corners */
+            border-radius: 8px;
         }
-
         h1 {
             margin: 15px 0;
             font-size: 1.8rem;
             color: white;
         }
-
         main {
             margin: 20px auto;
             padding: 20px;
             max-width: 400px;
             background-color: white;
             border: 4px solid #ff6f61;
-            border-radius: 12px; /* Soft rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
         form {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-
         input, textarea, select {
             padding: 10px;
             border: 2px solid #ccc;
@@ -59,18 +52,12 @@
             font-size: 1rem;
             transition: border-color 0.3s ease;
         }
-
         input:focus, textarea:focus, select:focus {
-            border-color: #ff6f61; /* Highlight on focus */
+            border-color: #ff6f61;
             outline: none;
         }
-
-        textarea {
-            resize: vertical; /* Allow vertical resizing */
-        }
-
         .submit-btn {
-            background-color: #ff6f61; /* Soft coral color */
+            background-color: #ff6f61;
             color: white;
             border: none;
             border-radius: 8px;
@@ -80,25 +67,15 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
         .submit-btn:hover {
-            background-color: #ff4a3d; /* Darker coral on hover */
-            animation: pixelate 0.3s ease; /* Pixelated button animation */
+            background-color: #ff4a3d;
         }
-
         footer {
             margin-top: 20px;
             padding: 15px;
-            background-color: #ff6f61; /* Soft coral color */
+            background-color: #ff6f61;
             color: white;
             font-size: 0.9rem;
-        }
-
-        /* Pixel art button animation */
-        @keyframes pixelate {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
@@ -106,18 +83,18 @@
 <body>
     <header>
         <figure id="AppLogo">
-            <img src="photo.png" alt="App Logo"> <!-- Use a pixel art logo -->
+            <img src="photo.png" alt="App Logo">
         </figure>
         <h1>Report a Stray</h1>
     </header>
     
     <main>
-        <form action="submit-report.html" method="post">
+        <form id="reportForm">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
             <input type="text" name="location" placeholder="Location of the Stray" required>
             <textarea name="description" placeholder="Description of Appearance" rows="4" required></textarea>
-            <select name="report-type" required>
+            <select name="reportType" required>
                 <option value="" disabled selected>Nature of Report</option>
                 <option value="injured">Injured Animal</option>
                 <option value="lost">Lost Animal</option>
@@ -131,5 +108,40 @@
     <footer>
         <p>Your report can save a life. Thank you for helping!</p>
     </footer>
+
+    <script>
+        document.getElementById("reportForm").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Prevent page refresh
+
+            const formData = {
+                name: this.name.value,
+                email: this.email.value,
+                location: this.location.value,
+                description: this.description.value,
+                reportType: this.reportType.value
+            };
+
+            try {
+                const response = await fetch("http://localhost:5000/api/reports", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert("✅ Report Submitted Successfully!");
+                    this.reset(); // Clear the form
+                } else {
+                    alert("❌ Error: " + result.message);
+                }
+            } catch (error) {
+                alert("❌ Failed to submit report. Check server connection.");
+                console.error("Error:", error);
+            }
+        });
+    </script>
+
 </body>
 </html>
